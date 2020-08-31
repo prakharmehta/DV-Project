@@ -1,0 +1,182 @@
+#radial-view-controls {
+    transition: all 0.5s;
+    position: relative;
+    width: 0;
+    left: 50%;
+    top: 50%;
+    /* width: auto;
+    height: 100vh; */
+}
+
+.song {
+    transition: 0.3s opacity;
+}
+
+.song .dot {
+    fill: #fff;
+    stroke: #fff;
+    stroke-width: 1.5;
+    stroke-opacity: 1;
+}
+
+.song.active .pulse:hover, .song.active .pulse {
+    animation: pulse;
+    animation-iteration-count: infinite;
+}
+
+.song.active .dot {
+    stroke: #fff !important;
+    /* stroke-width: 5; */
+}
+
+.song .song-label {
+    opacity: 0;
+    text-anchor: middle;
+    z-index: 100;
+}
+
+.song:hover .song-label {
+    opacity: 1;
+}
+
+.hidden {
+    fill-opacity: 0;
+    stroke-opacity: 0;
+}
+
+.fade:not(.similar-highlight) {
+    opacity: 0.2;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    5% {
+        transform: scale(1.1);
+    }
+    80% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.rotate-anim {animation-iteration-count: infinite !important;}
+.song.active .rotate-anim.rotate-1, .song.hover .rotate-anim.rotate-1 { animation: rotate-1; }
+.song.active .rotate-anim.rotate-2, .song.hover .rotate-anim.rotate-2 { animation: rotate-2; }
+.song.active .rotate-anim.rotate-3, .song.hover .rotate-anim.rotate-3 { animation: rotate-3; }
+.song.active .rotate-anim.rotate-4, .song.hover .rotate-anim.rotate-4 { animation: rotate-4; }
+.song.active .rotate-anim.rotate-5, .song.hover .rotate-anim.rotate-5 { animation: rotate-5; }
+.song.active .rotate-anim.rotate-6, .song.hover .rotate-anim.rotate-6 { animation: rotate-6; }
+.song.active .rotate-anim.rotate-7, .song.hover .rotate-anim.rotate-7 { animation: rotate-7; }
+.song.active .rotate-anim.rotate-8, .song.hover .rotate-anim.rotate-8 { animation: rotate-8; }
+
+.song .hover-area {
+    fill-opacity: 0;
+    cursor: pointer;
+}
+
+@keyframes rotate-1 {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate-2 {
+    0%   { transform: rotate(0deg); }
+    50%  { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes rotate-3 {
+    0%     { transform: rotate(0deg); }
+    33.33% { transform: rotate(120deg); }
+    66.67% { transform: rotate(240deg); }
+    100%   { transform: rotate(360deg); }
+}
+
+@keyframes rotate-4 {
+    0%      { transform: rotate(0deg); }
+    25%     { transform: rotate(90deg); }
+    50%     { transform: rotate(180deg); }
+    75%     { transform: rotate(270deg); }
+    100%    { transform: rotate(360deg); }
+}
+
+@keyframes rotate-5 {
+    0%      { transform: rotate(0deg); }
+    20%     { transform: rotate(72deg); }
+    40%     { transform: rotate(144deg); }
+    60%     { transform: rotate(216deg); }
+    80%     { transform: rotate(288deg); }
+    100%    { transform: rotate(360deg); }
+}
+
+@keyframes rotate-6 {
+    0%     { transform: rotate(0deg); }
+    16.67% { transform: rotate(60deg); }
+    33.33% { transform: rotate(120deg); }
+    50%    { transform: rotate(180deg); }
+    66.67% { transform: rotate(240deg); }
+    83.33% { transform: rotate(300deg); }
+    100%   { transform: rotate(360deg); }
+}
+
+@keyframes rotate-7 {
+    0%     { transform: rotate(0deg); }
+    14.29% { transform: rotate(51.43deg); }
+    28.57% { transform: rotate(102.86deg); }
+    42.86% { transform: rotate(154.29deg); }
+    57.14% { transform: rotate(205.71deg); }
+    71.43% { transform: rotate(257.14deg); }
+    85.71% { transform: rotate(308.57deg); }
+    100%   { transform: rotate(360deg); }
+}
+
+.song-tooltip {
+    background-color: #333c;
+    color: #fff;
+    border-radius: 4px;
+    border: 1px #444 solid;
+    padding: 5px 10px;
+    font-size: 10pt;
+    text-align: center;
+}
+
+.song-tooltip p {
+    margin: 0;
+}
+
+.vinyl {
+    z-index: -100;
+}
+
+.vinyl-center-image {
+    transition: opacity 0.3s;
+}
+
+.vinyl-center-image.hide {
+    opacity: 0;
+}
+
+.vinyl .spinning{
+    animation: turntable 10s infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes turntable {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.label-split {
+    text-anchor: middle;
+    alignment-baseline: central;
+    text-transform: uppercase;
+    fill: #ffffff;
+    font-size: 10pt;
+    font-weight: 900;
+    font-style: italic;
+}
+

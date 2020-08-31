@@ -1,0 +1,120 @@
+#star-view-drawer {
+  position: fixed;
+  padding: 10px 10px;
+  bottom: 0;
+  /* padding-top: 0; */
+  left: 0;
+  width: 100%;
+  /*background-color: #151515;*/
+  background-color: #37364D;
+  transition: transform 0.5s;
+}
+
+#star-view-drawer.hide {
+  transform: translateY(100%);
+}
+
+.drawer-tab {
+  padding: 5px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  /*background-color: #151515;*/
+  background-color: #37364D;
+  transition: all 0.2s;
+  width: calc(50% - 30px);
+}
+
+.drawer-tab.ready {
+  background-color: #444;
+}
+
+#star-view-drawer .drawer-tab {
+  position: absolute;
+  left: 50%;
+  /*transform: translate(-50%, -100%) translateY(-29px);*/
+  transform: translate(-50%, calc(-100% - 10px));
+  transition: width 0.5s;
+  /* min-width: calc(50% - 30px); */
+}
+
+#star-view {
+  height: 500px;
+  /*pointer-events: none;*/
+}
+
+#target {
+  margin: 40px 0;
+}
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+.chart {
+  margin-bottom: 40px;
+}
+.star-title {
+  font-size: 18px;
+  font-family: proxima-nova, sans-serif;
+  fill: #f4f4f4;
+  font-weight: bold;
+}
+.star-label {
+  font-size: 14px;
+  font-family: proxima-nova, sans-serif;
+  color: #f4f4f4;
+  fill: #f4f4f4;
+  /*fill-opacity: 0.3;*/
+  /* pointer-events: none; */
+}
+.star-remove {
+  font-size: 24px;
+  font-family: proxima-nova, sans-serif;
+  fill: #f4f4f4;
+  fill-opacity: 0.3;
+}
+.star-remove:hover {
+  fill-opacity: 0.6;
+}
+.star-categories {
+  font-size: 14px;
+  font-family: proxima-nova, sans-serif;
+  fill: #f4f4f4;
+}
+.star-origin {
+  fill: #f4f4f4;
+}
+.star-axis {
+  stroke: #f4f4f4;
+  stroke-opacity: 0.15;
+  stroke-width: 1px;
+}
+.star-path {
+  stroke: #f4f4f4;
+  stroke-width: 4px;
+  fill: #f4f4f4;
+  fill-opacity: 0;
+}
+.star-grid {
+  stroke: #f4f4f4;
+  stroke-opacity: 0.15;
+  stroke-width: 1px;
+  fill-opacity: 0;
+}
+.star-interaction {
+  opacity: 0;
+}
+.interaction {
+  pointer-events: none;
+}
+.interaction.label {
+  position: absolute;
+  font-size: 14px;
+  text-shadow: 0 1px 0 #FFF, 0 -1px 0 #FFF, 1px 0 #FFF, -1px 0 #FFF;
+}
+/*.interaction.circle {
+  fill: #444;
+  fill-opacity: 0.6;
+  stroke: #444;
+}*/
+
+

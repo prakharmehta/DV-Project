@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>VizSong</title>
+    <link rel="stylesheet" href="https://use.typekit.net/zry1rcu.css" />
+    <link
+      rel="stylesheet"
+      href="https://nico-amsterdam.github.io/awesomplete-util/css/awesomplete.css"
+    />
+    <link rel="stylesheet" href="css/grids.css" />
+    <link rel="stylesheet" href="css/histograms.css" />
+    <link rel="stylesheet" href="css/radialplot.css" />
+    <link rel="stylesheet" href="css/starplot.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <!-- <link rel="shortcut icon" type="image/png" href="img/favicon.png" /> -->
+
+    <script
+      src="https://kit.fontawesome.com/45bc1cc8f8.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-154213807-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-154213807-1");
+    </script>
+<!-- 
+    <meta property="og:title" content="VINYL" />
+    <meta
+      property="og:description"
+      content="Comparing Music Artists through Visualization"
+    />
+    <meta property="og:url" content="https://kenziemurphy.github.io/vinyl/" />
+    <meta
+      property="og:image"
+      content="https://kenziemurphy.github.io/vinyl/img/og-image.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" /> -->
+  </head>
+  <body style="background-image: url(bg.png); overflow-x:hidden;">
+    <!-- TODO remove inline CSS -->
+    <!-- <div id="tutorial-landing" class="overlay-popup full-page">
+			<img src="img/tutorial_landing.png" style="width: 60%; max-width: 800px;">
+		</div> -->
+    <!-- <div id="tutorial-popup" class="overlay-popup full-page hide">
+			<img src="img/tutorial_popup.png" style="width: 100%; max-width: 100%;">
+		</div> -->
+    <div class="container-main container-row container-col-sm">
+      <div class="cell container-col sidebar-lg">
+        <div class="hidden-sm">
+          <h1 class="logo">VizSong</h1>
+          <p class="subtitle">
+            <small>Discover Songs with visualisations via Spotify API</small>
+          </p>
+        </div>
+        <div class="hidden-lg" style="margin-bottom: 10px">
+          <i><b>VizSong</b></i> - Comparing Music Artists through Vis
+        </div>
+        <div class="grow">
+          <!-- <h2>I'm interested in...</h2> -->
+          <input
+            class="form-control"
+            id="search-artist"
+            name="search[artist]"
+            type="text"
+            placeholder="Search for an artist..."
+          />
+          <div id="artist-buttons">
+            <!--<div class="artist-btn">Muse<button>&times;</button></div>
+						<div class="artist-btn">Radiohead<button>&times;</button></div>
+						<div class="artist-btn">Slot Machine<button>&times;</button></div>-->
+          </div>
+          <div class="text-center text-muted" style="line-height: 1">
+            <i
+              ><small>Up to 4 artists can be added to the comparison.</small></i
+            >
+          </div>
+        </div>
+        <div class="collapse-sm">
+          <div class="container-column" style="margin:auto;">
+						<div class="cell panel dont-reset-selection" id="options-panel" style="visibility: hidden";  >
+
+							<div class="mb-xs" >
+								<div class="margin-gutter" >
+									<div class="mb-xxs">
+										
+									</div>
+									<input type="text" class="btn vis-control" id="search-highlight" style="width: 100%;" style="visibility: hidden;">
+								</div>
+							</div>
+
+              <!-- </div> -->
+              <!-- <div class="container-row">
+							<div class="grow margin-gutter" style="width: 33.33%">
+								<button id="toggle-split-view" class="btn vis-control">Toggle&shy; split view</button>
+							</div>
+							<div class="grow margin-gutter" style="width: 33.33%">
+								<button id="toggle-album-art" class="btn vis-control">Toggle&shy;  album art</button>
+							</div>
+							<div class="grow margin-gutter" style="width: 33.33%">
+								<button id="toggle-force" class="btn vis-control">Toggle&shy;  force jittering</button>
+							</div>
+						</div> -->
+              <!-- <div class="container-col"> -->
+                <div class="grow container-row mb-xs">
+                  <div class="grow">
+                    
+                  </div>
+                  <label class="switch vis-control">
+                    <input type="checkbox" id="toggle-pca" class="vis-control" style="visibility: hidden; ">
+                    <span class="slider round" style="visibility: hidden"></span>
+                  </label>
+                </div>
+
+                <div class="container-row mb-xs">
+                  <div class="grow">
+                    
+                  </div>
+                  <label class="switch vis-control">
+                    <input type="checkbox" id="toggle-split-view" class="vis-control" style="visibility: hidden;">
+                    <span class="slider round" ></span>
+                  </label>
+                </div>
+                <div class="container-row mb-xs">
+                  <div class="grow">
+                    
+                  </div>
+                  <label class="switch vis-control">
+                    <input type="checkbox" id="toggle-album-art" class="vis-control" style="visibility: hidden;">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+                <div class="container-row mb-xs">
+                  <div class="grow">
+                    
+                  </div>
+                  <label class="switch vis-control">
+                    <input type="checkbox" id="toggle-force" class="vis-control" style="visibility: hidden;">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              <div class="container-row mb-xs">
+                <button
+                  class="btn btn-block clickable"
+                  id="toggle-tutorial-overlay"
+                >
+                  How to read this vis?
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- <h2>About the Data</h2> -->
+         
+        </div>
+      </div>
+      <div class="cell grow container-col central-column">
+        <div
+          id="vis-area"
+          class="cell grow container-col container-col-rev-sm anti-cell-sm"
+        >
+          <div class="container-row" id="select-axes" style="margin-top: -400px; margin-left: 50%; width: 50%;" >
+            <!-- <div class="cell grow mb-xs" style="margin-bottom: 10px;">
+							<div>
+								<small class="nowrap">Position data points by</small>
+							</div>
+							<div class="container-row">
+								<div class="radio grow">
+									<input type="radio" id="radio-pca-on" name="radio-pca" value="mode-pca">
+									<label for="radio-pca-on" class="btn btn-block text-center add-help nowrap clickable" data-help-key="mode-pca"><small>Group by Similarity</small> </label>
+								</div>
+								<div class="grow radio">
+									<input type="radio" id="radio-pca-off" name="radio-pca" value="mode-value" checked>
+									<label for="radio-pca-off" class="btn btn-block text-center add-help nowrap clickable" data-help-key="mode-value"><small>Plot by Value</small> </label>
+								</div>
+							</div>
+						</div> -->
+            <div class="cell grow" style="margin-left:53%; margin-top:0;">
+              <div class="margin-gutter">
+                <div>
+                  <small class="nowrap">X Axis</small>
+                </div>
+                <select
+                  name="select-x-axis"
+                  class="btn active vis-control"
+                  id="select-x-axis"
+                  style="width: 90%;"
+                >
+                  <option
+                    data-scale-type="linear"
+                    value="select"
+                    data-radial="true"
+                    selected="selected"
+                  >
+                    Select
+                  </option>
+                  <!-- <option data-scale-type="linear" value="key_signature_by_fifths" data-radial="true">KEY (Ordered by Circle of Fifths)</option> -->
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="100"
+                    value="popularity"
+                  >
+                    POPULARITY
+                  </option>
+                  <option data-scale-type="linear" value="release_year">
+                    YEAR
+                  </option>
+                  <option data-scale-type="linear" value="loudness">
+                    LOUDNESS
+                  </option>
+                  <option data-scale-type="linear" value="duration">
+                    DURATION
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    value="tempo"
+                    selected="selected"
+                  >
+                    TEMPO
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="energy"
+                  >
+                    ENERGY
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="danceability"
+                  >
+                    DANCEABILITY
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="valence"
+                  >
+                    POSITIVENESS
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="acousticness"
+                  >
+                    ACOUSTICNESS
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="liveness"
+                  >
+                    LIVENESS
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="instrumentalness"
+                  >
+                    INSTRUMENTALNESS
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="speechiness"
+                  >
+                    SPEECHINESS
+                  </option>
+                  <!-- <option data-scale-type="linear" value="pca1">PCA1</option>	 -->
+                </select>
+              </div>
+            </div>
+            <div class="cell grow">
+              <div class="margin-gutter">
+                <div>
+                  <small class="nowrap">Y Axis</small>
+                </div>
+                <select
+                  name="select-y-axis"
+                  class="btn active vis-control"
+                  id="select-y-axis"
+                  style="width: 40%; margin-left: 57.5%;"
+                >
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="100"
+                    value="select"
+                    selected="selected"
+                  >
+                    Select
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="100"
+                    value="popularity"
+                  >
+                    POPULARITY
+                  </option>
+                  <option data-scale-type="linear" value="release_year">
+                    YEAR
+                  </option>
+                  <option data-scale-type="linear" value="loudness">
+                    LOUDNESS
+                  </option>
+                  <option data-scale-type="linear" value="duration">
+                    DURATION
+                  </option>
+                  <option data-scale-type="linear" value="tempo">TEMPO</option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="energy"
+                  >
+                    ENERGY
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="danceability"
+                  >
+                    DANCEABILITY
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="valence"
+                  >
+                    POSITIVENESS
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="acousticness"
+                  >
+                    ACOUSTICNESS
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="liveness"
+                  >
+                    LIVENESS
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="instrumentalness"
+                  >
+                    INSTRUMENTALNESS
+                  </option>
+                  <option
+                    data-scale-type="linear"
+                    data-scale-min="0"
+                    data-scale-max="1"
+                    value="speechiness"
+                  >
+                    SPEECHINESS
+                  </option>
+                  <!-- <option data-scale-type="linear" value="pca2">PCA2</option>	 -->
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="container-row">
+            <div class="cell hide" id="pca-axes-notes">
+              <small
+                ><i
+                  >Turn off "Just cluster similar songs" to enable axes
+                  selection</i
+                ></small
+              >
+            </div>
+          </div>
+
+          <div class="grow container-col">
+            <!-- <div class="grow container-col" style="padding-bottom: 30px;"> -->
+            <!-- <div class="grow" id="radial-view"></div> -->
+            <svg id="radial-view" class="grow" overflow="visible" height="700px" width="700px" style="margin-left:30%; margin-top: -25px"></svg>
+          </div>
+          <!-- <div class="" style="padding-top: 20px; padding-bottom: 20px;">
+						Other songs similar to your selection:
+					</div> -->
+        </div>
+        <div class="hidden-lg" style="margin-top: 30px">
+          <small>
+            <i>
+              <b>Try this on a desktop/laptop</b> for full functionality, e.g.,
+              song preview, more controls, song-by-song comparisons, song
+              distributions, & way better overall experience.
+            </i>
+          </small>
+        </div>
+        <div
+          class="drawer-tab vis-control transparent hidden-sm"
+          style="font-size: 10pt; margin-top: 10px"
+        >
+          <!-- <h2>Detailed Analysis</h2> -->
+          <div class="text-center">
+            <i class="fa fa-angle-up" style="opacity: 0"></i>
+          </div>
+          <div class="flex-container">
+            <div class="text-center grow">
+              Drag a song here for more details
+            </div>
+            <div></div>
+          </div>
+          <!--<div>
+						2 Songs in Comparison [TODO: show number of songs in comparison]
+					</div>-->
+        </div>
+      </div>
+      <div class="cell container-col collapse-sm sidebar-lg" style="margin-left: 25%; margin-top: 20px; margin-bottom: 100px;" >
+        <h2>Song Feature Distributions</h2>
+        <svg id="histogram-view" class="grow" overflow="visible" width="1000px" height="2000px" ></svg>
+        <!-- <h2>Legend</h2>
+				<div class="panel">
+					<ul>
+						<li>Size</li>
+						<li>Shape</li>
+						<li>Image</li>
+					</ul>
+				</div> -->
+    
+      </div>
+    </div>
+
+    <div id="veil" class="veil hide vis-control"></div>
+
+    <div id="star-view-drawer" class="container-col hide dont-reset-selection">
+      <div
+        id="drop-area"
+        class="cell drawer-tab vis-control clickable hidden-sm"
+      >
+        <!-- <h2>Detailed Analysis</h2> -->
+        <div class="text-center">
+          <i class="fa fa-angle-up" id="expand-icon" style="opacity: 0"></i>
+        </div>
+        <div class="flex-container" style="opacity: 40%;">
+          <div id="starTitleLabel" class="text-center grow">
+            Drag a song here for more details
+          </div>
+          <div id="starClear"></div>
+        </div>
+        <!--<div>
+					2 Songs in Comparison [TODO: show number of songs in comparison]
+				</div>-->
+      </div>
+      <div class="grow">
+        <!--<h2 class="mt-0">Song-by-song Comparison</h2>-->
+        <svg id="star-view" class="grow" overflow="visible"></svg>
+      </div>
+    </div>
+
+    <!-- <div class="help-tooltip hide">
+      <h3 class="help-title">Test Help Tooltip</h3>
+      <p class="help-body">
+        This is a test help message on the help tooltip. This is a test help
+        message on the help tooltip. This is a test help message on the help
+        tooltip.
+      </p>
+    </div>
+
+    <div class="tutorial-tooltip hide" id="tutorial">
+      <div class="speech-bubble">
+        <p>Test Test</p>
+      </div>
+    </div> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+    <script src="https://nico-amsterdam.github.io/awesomplete-util/js/awesomplete.min.js"></script>
+    <script src="https://nico-amsterdam.github.io/awesomplete-util/js/awesomplete-util.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <script src="js/lib/pca.min.js"></script>
+
+    <script src="js/popular_artists.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/audiohelpers.js"></script>
+    <script src="js/helptooltip.js"></script>
+    <script src="js/rectangulargrid.js"></script>
+    <!-- <script src="js/radialgrid.js"></script> -->
+    <!-- <script src="js/radialplot.js"></script> -->
+    <script src="js/radialplot_with_split.js"></script>
+    <script src="js/histograms.js"></script>
+    <script src="js/starplots.js"></script>
+    <!-- <script src="js/tutorial.js"></script> -->
+
+    <script>
+      var ENABLE_TUTORIAL = false;
+      var ENABLE_ALL_TUTORIALS = false;
+
+      var components = [];
+      var data = [];
+
+      var dispatch = d3.dispatch("filter", "highlight");
+
+      var SongInStarPlot = false;
+
+      var rv;
+      components.push(
+        (rv = new RadialView(d3.select("svg#radial-view"), [], dispatch))
+      );
+      components.push(
+        new HistogramView(d3.select("svg#histogram-view"), [], dispatch)
+      );
+      // components.push(new StarView(d3.select('svg#star-view'), [], dispatch));
+
+      // Load data and call onDataChanged for components once load is complete
+
+      dispatch.on("filter", function (filterFunc) {
+        components.forEach(function (c) {
+          c.onFilter(filterFunc);
+        });
+      });
+
+      dispatch.on("highlight", function (filterFunc) {
+        components.forEach(function (c) {
+          c.onHighlight(filterFunc);
+        });
+      });
+
+      window.addEventListener("resize", function () {
+        components.forEach(function (c) {
+          c.onScreenSizeChanged();
+        });
+      });
+
+      d3.select(".bookmark-page").on("click.bookmark", function (e) {
+        d3.event.preventDefault();
+        if (window.sidebar && window.sidebar.addPanel) {
+          // Firefox <23
+
+          window.sidebar.addPanel(document.title, window.location.href, "");
+        } else if (window.external && "AddFavorite" in window.external) {
+          // Internet Explorer
+
+          window.external.AddFavorite(location.href, document.title);
+        } else if (
+          (window.opera && window.print) ||
+          (window.sidebar && !(window.sidebar instanceof Node))
+        ) {
+          // Opera <15 and Firefox >23
+          /**
+           * For Firefox <23 and Opera <15, no need for JS to add to bookmarks
+           * The only thing needed is a `title` and a `rel="sidebar"`
+           * To ensure that the bookmarked URL doesn't have a complementary `#` from our trigger's href
+           * we force the current URL
+           */
+          triggerBookmark
+            .attr("rel", "sidebar")
+            .attr("title", document.title)
+            .attr("href", window.location.href);
+          return true;
+        } else {
+          // For the other browsers (mainly WebKit) we use a simple alert to inform users that they can add to bookmarks with ctrl+D/cmd+D
+
+          alert(
+            "You can add this page to your bookmarks by pressing " +
+              (navigator.userAgent.toLowerCase().indexOf("mac") != -1
+                ? "Command/Cmd"
+                : "CTRL") +
+              " + D on your keyboard."
+          );
+        }
+        // If you have something in the `href` of your trigger
+        return false;
+      });
+
+      d3.select("#tutorial-landing").on("click.tutorial", function () {
+        if (ENABLE_TUTORIAL) {
+          callTutorial(
+            "#search-artist",
+            "Try adding your favorite artist<br>to the comparison here!"
+          );
+          if (urlParams.getAll("q").length <= 0) {
+            // pull random comparison
+            callTutorial(
+              "#search-artist",
+              "Here are some random artists to help get<br>you started. Now try adding your own<br>favorite artists to the comparison here!"
+            );
+          }
+        }
+        d3.select("#search-artist").node().focus();
+      });
+
+      d3.selectAll(".overlay-popup").on("click", function () {
+        d3.select(this).classed("hide", true);
+      });
+
+      d3.select("#toggle-tutorial-overlay").on("click", function () {
+        d3.select("#tutorial-popup").classed("hide", false);
+      });
+
+      // UI initialization from vis's config
+      let rvConfig = rv.getConfig();
+      d3.select("[name=select-x-axis]").property(
+        "value",
+        rvConfig.xMapping.key
+      );
+      d3.select("[name=select-y-axis]").property(
+        "value",
+        rvConfig.yMapping.key
+      );
+      d3.select("#toggle-split-view").property("checked", rvConfig.isSplitting);
+      d3.select("#toggle-album-art").property("checked", rvConfig.showAlbumArt);
+      d3.select("#toggle-force").property("checked", rvConfig.enableForce);
+      d3.select("[name=radio-pca]").property("value", rvConfig.isPca);
+      d3.select("#toggle-pca").property("checked", rvConfig.isPca);
+      // document.getElementById('radio-pca').checked = rvConfig.isPca;
+      // document.getElementById('toggle-pca').checked = rvConfig.isPca;
+      updateSplitViewToggle();
+
+      function updateSplitViewToggle() {
+        let splitViewToggle = d3.select("#toggle-split-view");
+        let splitViewParent = d3.select(splitViewToggle.node().parentNode);
+        if (data.length > 1) {
+          splitViewToggle.attr("disabled", null);
+          splitViewParent.classed("disabled", false);
+        } else {
+          splitViewToggle.attr("disabled", "disabled");
+          splitViewParent.classed("disabled", true);
+        }
+      }
+
+      // UI events
+      d3.selectAll("[name=radio-pca], #toggle-pca")
+        // d3.selectAll('#toggle-pca')
+        .on("change", function () {
+          console.log(this.getAttribute("type"));
+          let isChecked =
+            this.getAttribute("type") == "checkbox"
+              ? this.checked
+              : this.value == "mode-pca";
+          // console.log(this.checked)
+          if (isChecked) {
+            rv.setConfig({
+              xMapping: {
+                key: "pca1",
+                scaleType: "linear",
+                minOverride: false,
+                maxOverride: false,
+                isRadial: false,
+              },
+              yMapping: {
+                key: "pca2",
+                scaleType: "linear",
+                minOverride: false,
+                maxOverride: false,
+                isRadial: false,
+              },
+              showAxes: false,
+            });
+            d3.select("[name=select-x-axis]").attr("disabled", "disabled");
+            d3.select("[name=select-y-axis]").attr("disabled", "disabled");
+            d3.select("#pca-axes-notes").classed("hide", false);
+          } else {
+            let xSelect = d3.select("[name=select-x-axis]").node();
+            let ySelect = d3.select("[name=select-y-axis]").node();
+            let xSelectedOption = xSelect.options[xSelect.selectedIndex];
+            let ySelectedOption = ySelect.options[ySelect.selectedIndex];
+            rv.setConfig({
+              xMapping: {
+                key: xSelectedOption.value,
+                scaleType: xSelectedOption.getAttribute("data-scale-type"),
+                minOverride:
+                  xSelectedOption.getAttribute("data-scale-min") || false,
+                maxOverride:
+                  xSelectedOption.getAttribute("data-scale-max") || false,
+                isRadial: xSelectedOption.getAttribute("data-radial") || false,
+              },
+              yMapping: {
+                key: ySelectedOption.value,
+                scaleType: ySelectedOption.getAttribute("data-scale-type"),
+                minOverride:
+                  ySelectedOption.getAttribute("data-scale-min") || false,
+                maxOverride:
+                  ySelectedOption.getAttribute("data-scale-max") || false,
+                isRadial: ySelectedOption.getAttribute("data-radial") || false,
+              },
+              showAxes: true,
+            });
+            d3.select("[name=select-x-axis]").attr("disabled", null);
+            d3.select("[name=select-y-axis]").attr("disabled", null);
+            d3.select("#pca-axes-notes").classed("hide", true);
+          }
+        });
+
+      d3.selectAll("#toggle-split-view").on("change", function (e) {
+        rv.setConfig({ isSplitting: this.checked });
+      });
+
+      d3.selectAll("#toggle-album-art").on("change", function (e) {
+        rv.setConfig({ showAlbumArt: this.checked });
+      });
+
+      d3.selectAll("#toggle-force").on("change", function (e) {
+        rv.setConfig({ enableForce: this.checked });
+      });
+
+      d3.selectAll("[name=select-x-axis]").on("change", function () {
+        let selectedOption = this.options[this.selectedIndex];
+        rv.setConfig({
+          xMapping: {
+            key: selectedOption.value,
+            scaleType: selectedOption.getAttribute("data-scale-type"),
+            minOverride: selectedOption.getAttribute("data-scale-min") || false,
+            maxOverride: selectedOption.getAttribute("data-scale-max") || false,
+            isRadial: selectedOption.getAttribute("data-radial") || false,
+          },
+        });
+        if (ENABLE_TUTORIAL)
+          callTutorial(
+            "#options-panel",
+            "You can also try adjusting<br>more options here.",
+            "n"
+          );
+      });
+      d3.selectAll("[name=select-y-axis]").on("change", function () {
+        let selectedOption = this.options[this.selectedIndex];
+        rv.setConfig({
+          yMapping: {
+            key: selectedOption.value,
+            scaleType: selectedOption.getAttribute("data-scale-type"),
+            minOverride: selectedOption.getAttribute("data-scale-min") || false,
+            maxOverride: selectedOption.getAttribute("data-scale-max") || false,
+            isRadial: selectedOption.getAttribute("data-radial") || false,
+          },
+        });
+        if (ENABLE_TUTORIAL)
+          callTutorial(
+            "#options-panel",
+            "You can also try adjusting<br>more options here.",
+            "n"
+          );
+      });
+      d3.selectAll("#search-highlight")
+        .on("keyup", function () {
+          dispatch.call("highlight", this, (k) =>
+            k.name
+              ? k.name.toLowerCase().indexOf(this.value.toLowerCase()) >= 0
+              : false
+          );
+        })
+        .on("click", function () {
+          // this.classList.remove('disabled')
+          this.classList.add("active");
+          this.select();
+          dispatch.call("highlight", this, (k) =>
+            k.name
+              ? k.name.toLowerCase().indexOf(this.value.toLowerCase()) >= 0
+              : false
+          );
+        });
+
+      d3.select("#star-view-drawer .drawer-tab").on(
+        "click",
+        function (e) {
+          let drawer = this.parentNode;
+          // console.log("Songinstarplot", SongInStarPlot);
+          if (SongInStarPlot) {
+            console.log("Songinstarplot", SongInStarPlot);
+            d3.select(drawer).classed(
+              "hide",
+              !d3.select(drawer).classed("hide")
+            );
+            document.getElementById("expand-icon").style.opacity = 1;
+            if (d3.select(drawer).classed("hide")) {
+              document
+                .getElementById("expand-icon")
+                .classList.remove("fa-angle-down");
+              document
+                .getElementById("expand-icon")
+                .classList.add("fa-angle-up");
+            } else {
+              document
+                .getElementById("expand-icon")
+                .classList.remove("fa-angle-up");
+              document
+                .getElementById("expand-icon")
+                .classList.add("fa-angle-down");
+            }
+          } else {
+            document.getElementById("expand-icon").style.opacity = 0;
+          }
+
+          // console.log("drawer", d3.select(drawer).classed('hide'));
+
+          d3.select("#veil").classed("hide", d3.select(drawer).classed("hide"));
+        },
+        false
+      );
+      d3.select("#starClear").on("click", function () {
+        console.log("removeAll");
+        document.getElementById("star-view-drawer").classList.remove("show");
+        document.getElementById("star-view-drawer").classList.add("hide");
+        // d3.select('#star-view-drawer').classed('hide', true);
+        new StarView(d3.select("svg#star-view"), [], dispatch).onDataChanged();
+      });
+
+      d3.select("#veil").on("click", function () {
+        d3.select("#star-view-drawer").classed("hide", true);
+        d3.select("#veil").classed("hide", true);
+        document
+          .getElementById("expand-icon")
+          .classList.remove("fa-angle-down");
+        document.getElementById("expand-icon").classList.add("fa-angle-up");
+      });
+
+      // d3.selectAll('#star-view-drawer .drawer-tab')
+      // 	.data([{}])
+      // 	.call(d3.drag()
+      // 		.on('start', function(d) {
+      // 			d.startX = d3.event.x;
+      // 			d.startY = d3.event.y;
+      // 		})
+      // 		.on('drag', function (d) {
+      // 			console.log(d.startY, d3.event.y);
+      // 			this.parentNode.style.bottom = (d.startY - d3.event.y) + 'px';
+      // 		})
+      // 		.on('end', function () {
+      // 			console.log(this.parentNode.style.bottom);
+      // 			let offsetBottom = parseInt(this.parentNode.style.bottom, 10);
+      // 			if (offsetBottom > -80) {
+      // 				d3.select(this.parentNode)
+      // 					.transition()
+      // 					.style('bottom', '');
+      // 				this.parentNode.classList.remove('hide');
+      // 			} else {
+      // 				d3.select(this.parentNode)
+      // 					.transition()
+      // 					.style('bottom', '');
+      // 				this.parentNode.classList.add('hide');
+      // 			}
+      // 		})
+      // 	)
+
+      // Searchbar
+      AwesompleteUtil.start(
+        "#search-artist",
+        {
+          /* util options */
+          url:
+            "https://oeeppedclg.execute-api.us-east-1.amazonaws.com/musicoctorobot/search?searchString=",
+          urlEnd: "*",
+          limit: 1,
+        },
+        {
+          /* awesomplete options */ minChars: 1,
+          data: (rec, input) => ({
+            label: rec["name"],
+            value: { id: rec["id"], name: rec["name"] },
+          }),
+        }
+      );
+
+      let urlParams = new URLSearchParams(window.location.search);
+      function applyPromise(array, fn) {
+        return Promise.all(array.map(fn));
+      }
+
+      window.onpopstate = function () {
+        let urlParams = new URLSearchParams(window.location.search);
+        let artistsInUrl = urlParams.getAll("q");
+        let artistsInDataset = data.map((d) => d.id);
+        let artistsEnter = artistsInUrl.filter(
+          (n) => !artistsInDataset.includes(n)
+        );
+        let artistsExit = artistsInDataset.filter(
+          (n) => !artistsInUrl.includes(n)
+        );
+
+        applyPromise(artistsEnter, loadArtistData).then(function (e) {
+          return new Promise.all(e.map(appendArtistData));
+        });
+        artistsExit.forEach(removeArtistDataById);
+      };
+
+      // Promise.all(urlParams.getAll('q').map(d => loadArtistData(d))).then(() => {console.log('!!!')});
+      applyPromise(urlParams.getAll("q"), loadArtistData).then(function (e) {
+        return Promise.all(e.map(appendArtistData));
+      });
+
+      if (urlParams.getAll("q").length <= 0) {
+        // pull random comparison
+        randomComparison();
+      }
+
+      function randomComparison(k = 2) {
+        return new Promise(function (resolve, reject) {
+          let pickedIds = [];
+          let ids = Object.values(POPULAR_ARTISTS_IDS);
+          while (k > 0) {
+            if (ids.length < k) break;
+            let index = Math.floor(Math.random() * ids.length);
+            if (pickedIds.indexOf(ids[index]) < 0) {
+              pickedIds.push(ids[index]);
+              k--;
+            }
+          }
+
+          applyPromise(pickedIds, loadArtistData).then(function (e) {
+            return Promise.all(e.map(appendArtistData)).then(resolve);
+          });
+        });
+      }
+
+      // Listen to searchbar selection
+      document
+        .getElementById("search-artist")
+        .addEventListener("awesomplete-selectcomplete", function (event) {
+          // Clear the searchbar to be ready for a new search
+          document.getElementById("search-artist").value = "";
+
+          // Retrieve songs for this artist from our API
+          var artistID = event.text.value.id;
+          var artistName = event.text.value.name;
+          //console.log(artistID);
+
+          loadArtistData(artistID, artistName)
+            .then(appendArtistData)
+            .then(function () {
+              document.title = "VINYL - " + data.map((d) => d.name).join(" v ");
+              history.pushState(
+                {},
+                "VINYL - " + data.map((d) => d.name).join(" v "),
+                "?" + data.map((d) => "q=" + d.id).join("&")
+              );
+              if (ENABLE_TUTORIAL)
+                callTutorial(
+                  "#select-axes",
+                  "Try changing the axes here to see other attributes."
+                );
+            });
+        });
+
+      // helpers
+      function preprocessData(data) {
+        // TODO: try to remove duplicate data
+
+        console.log(data.length);
+        // remove duplicates
+        let duplicateGroups = [];
+        data.forEach(function (d) {
+          let duplicates = data
+            .filter((x) => x != d)
+            .map((x) => ({
+              dist: Utils.euclidianDistance(x, d),
+              data: x,
+            }))
+            .filter((x) => x.dist < 0.1 && x.data.name == d.name)
+            .map((x) => x.data);
+          if (duplicates.length > 0) {
+            duplicateGroups.push([d].concat(duplicates));
+          }
+        });
+
+        duplicateGroups.forEach(function (dup) {
+          dup.sort((a, b) => b.popularity - a.popularity);
+          for (let i = 1; i < dup.length; i++) {
+            let index = data.map((d) => d.id).indexOf(dup[i].id);
+            if (index >= 0) data.splice(index, 1);
+          }
+        });
+
+        console.log(data.length);
+
+        data.forEach(function (d) {
+          if (d.duration_ms) d.duration = d.duration_ms / 1000;
+          if (d.release_date)
+            d.release_year =
+              d.release_date.indexOf("-") < 0
+                ? +d.release_date
+                : +d.release_date.substring(0, d.release_date.indexOf("-"));
+        });
+      }
+
+      // NOTE arrayJoin was moved to utils.js
+
+      // Loads an array of song data for the given artistID and append that to our dataset
+      function loadArtistData(artistID, artistName) {
+        // draw loading button <i class="fas fa-circle-notch fa-spin"></i>
+        d3.select("#artist-buttons")
+          .insert("div", ":first-child")
+          .attr("id", "loading-artist-button")
+          .attr("class", "artist-btn")
+          .html("<i class='fas fa-circle-notch fa-spin'></i> Loading...");
+
+        //console.log('loading artist', artistID)
+
+        if (artistID.indexOf("spotify:artist:") >= 0)
+          artistID = artistID.substring("spotify:artist:".length);
+
+        var url =
+          "https://oeeppedclg.execute-api.us-east-1.amazonaws.com/musicoctorobot?artistId=" +
+          artistID +
+          "&name=" +
+          artistName;
+
+        return new Promise(function (resolve, reject) {
+          return d3.json(url).then(resolve); //.then()//.catch((error) => console.error(error));
+        });
+      }
+
+      function appendArtistData(loadedData) {
+        // remove loading button
+        d3.select("#loading-artist-button").remove();
+
+        return new Promise(function (resolve, reject) {
+          preprocessData(loadedData.songs);
+          console.log("preprocessed", loadedData);
+          // console.log(loadedData);
+
+          // Append to data array
+          data.push(loadedData);
+
+          // redraw artist buttons
+          drawArtistButtons();
+
+          // trigger a data change for the histograms
+          components.forEach(function (c) {
+            c.onDataChanged(data);
+          });
+          resolve();
+
+          updateSplitViewToggle();
+
+          // if (ENABLE_TUTORIAL && data.length == 2) {
+          // 	// callTutorial('#options-panel', 'Now try adjusting the visualization here!')
+          // 	callTutorial('[name=select-x-axis]', 'Now try changing the axes here to see other attributes.')
+          // }
+
+          if (data.length >= 4) {
+            d3.select("#search-artist").attr("disabled", "disabled");
+          }
+        });
+      }
+
+      // Removes the data for the artist at index i from the dataset
+      function removeArtistData(i) {
+        d3.select("#search-artist").attr("disabled", null);
+
+        // remove data from array
+        data.splice(data.length - i - 1, 1);
+
+        // redraw artist buttons
+        drawArtistButtons();
+
+        // enable/disable split view toggle based on if there're more than one artist loaded
+        updateSplitViewToggle();
+
+        // trigger a data change for the histograms
+        components.forEach(function (c) {
+          c.onDataChanged(data);
+        });
+        document.title = "VINYL - " + data.map((d) => d.name).join(" v ");
+        history.pushState(
+          {},
+          "VINYL - " + data.map((d) => d.name).join(" v "),
+          "?" + data.map((d) => "q=" + d.id).join("&")
+        );
+      }
+
+      // Removes the data for the artist from the dataset by artist id
+      function removeArtistDataById(id) {
+        d3.select("#search-artist").attr("disabled", false);
+
+        let removeIndex = data.map((d) => d.id).indexOf(id);
+        if (removeIndex >= 0) removeArtistData(removeIndex);
+      }
+
+      function drawArtistButtons() {
+        let colors = ["#F36293", "#81D0EF", "#FCA981", "#6988F2"].slice(
+          0,
+          data.length
+        ); // color scheme
+
+        let drawData = data.slice(0);
+        drawData.reverse();
+        colors.reverse();
+
+        let selection = d3
+          .select("#artist-buttons")
+          .selectAll(".artist-btn")
+          .data(drawData, (d) => {
+            if (d) return d.id;
+          });
+
+        // enter
+        let selectionEnter = selection.enter().append("div");
+
+        selectionEnter
+          .attr("class", "artist-btn")
+          .attr("data-id", (d) => d.id)
+          .style("border-left", (d, i) => "12px solid " + colors[i])
+          .text((d) => d["name"])
+          .on("mouseover", function (d, i) {
+            dispatch.call("highlight", this, (k) => k.collection_id == d.id);
+          })
+          .on("mouseout", function (d, i) {
+            dispatch.call("highlight", this, (k) => true);
+          });
+        selectionEnter
+          .append("button")
+          .html("&times;")
+          .on("click", (d, i) => removeArtistData(i));
+
+        // update
+        selection
+          .style("border-left", (d, i) => "12px solid " + colors[i])
+          .text((d) => d["name"])
+          .append("button")
+          .html("&times;")
+          .on("click", (d, i) => removeArtistData(i));
+
+        selection.merge(selectionEnter);
+
+        // exit
+        selection.exit().remove();
+      }
+    </script>
+  </body>
+</html>

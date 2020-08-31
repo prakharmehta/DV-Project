@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Radial Plot</title>
+    <link rel="stylesheet" href="radialplot.css">
+</head>
+<body>
+    <div class="controls fixed">
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="tempo">Tempo</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="danceability">Danceability</button>
+        <button class="radial-mapping-select" data-scale-type="log" data-attr="loudness">Loudness</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="acousticness">Acousticness</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="instrumentalness">Instrumentalness</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="liveness">Liveness</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="speechiness">Speechiness</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="energy">Energy</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="valence">Valence</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="duration_ms">Duration (ms)</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="popularity">Popularity</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="track_number">Track Number</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="key">Key</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="mode">Mode</button>
+        <button class="radial-mapping-select" data-scale-type="linear" data-attr="time_signature">Time Signature</button>
+    </div>
+    <div class="vis"><svg width="800" height="600"></svg></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.12.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+    <script src="audiohelpers.js"></script>
+    <script src="radialplot.js"></script>
+</body>
+</html>
